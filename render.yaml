@@ -2,7 +2,7 @@ services:
   - type: web
     name: lead-gen-agent
     runtime: docker
-    plan: starter
+    plan: free
     envVars:
       - key: APP_ENV
         value: production
@@ -20,4 +20,4 @@ services:
         generateValue: true
 databases:
   - name: lead-gen-db
-    plan: basic-256mb
+    plan: free
