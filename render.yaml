@@ -20,4 +20,4 @@ services:
         generateValue: true
 databases:
   - name: lead-gen-db
-    plan: basic
+    plan: basic-256mb
