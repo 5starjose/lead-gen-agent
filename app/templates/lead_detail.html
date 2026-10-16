@@ -1,0 +1,13 @@
+{% extends "base.html" %}{% block content %}
+<h1>{{ b.name }}</h1>
+<p>{{ b.industry }} · {{ b.city }}, {{ b.state }} {{ b.zip_code }} · {{ b.address }}<br>
+Phone: {{ b.phone or 'not available' }} · Email: {{ b.email or 'not available' }} · Website: {{ b.website or 'not found in record' }}<br>
+Rating: {{ b.rating }} ({{ b.review_count }} reviews) · Score: <b>{{ b.lead_score }}</b> ({{ b.score_tier }}) · Confidence: {{ b.confidence }} · Stage: {{ b.pipeline_stage }} · Status: {{ b.sales_status }} · Do-not-contact: {{ b.do_not_contact }}</p>
+<h2>Score breakdown</h2><pre>{{ breakdown }}</pre>
+<h2>Evidence</h2><ul>{% for e in b.evidence %}<li>[{{ e.strength }}] {{ e.text }} {% if e.source_url %}({{ e.source_url }}){% endif %}</li>{% endfor %}</ul>
+<h2>Website audits</h2><ul>{% for a in b.audits %}<li>{{ a.url }} — {{ a.status }}, https={{ a.https }}, contact={{ a.has_contact }}, quote={{ a.has_quote_form }}, booking={{ a.has_booking }}, chat={{ a.has_chat }}</li>{% endfor %}</ul>
+<h2>Sales brief</h2><pre style="white-space:pre-wrap">{{ b.sales_brief }}</pre>
+<h2>Pipeline history</h2><ul>{% for p in b.pipeline_events %}<li>{{ p.created_at }} {{ p.kind }}: {{ p.from_status }} → {{ p.to_status }} {{ p.note }}</li>{% endfor %}</ul>
+<h2>Notes</h2><p>{{ b.notes }}</p>
+<form method="post" action="/api/leads/{{ b.id }}/pipeline"><input name="sales_status" placeholder="New sales status"><input name="note" placeholder="note"><button>Update status</button></form>
+{% endblock %}

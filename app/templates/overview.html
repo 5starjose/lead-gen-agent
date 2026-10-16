@@ -1,0 +1,7 @@
+{% extends "base.html" %}{% block content %}
+<h1>Overview</h1>
+<div class="card">Today's run status: <b>{{ last_run.status if last_run else 'no runs yet' }}</b>{% if last_run %} — {{ last_run.error_summary }}{% endif %}<br>
+Last successful run: {{ last_success.id if last_success else 'none' }}<br>Next scheduled run: {{ next_run or 'not scheduled' }}</div>
+<div class="card">New leads today: {{ counts.new_today }} · Qualified: {{ counts.qualified }} · High-priority (80+): {{ counts.high }} · Ready for outreach: {{ counts.ready }} · Follow-ups due: {{ counts.followups }}<br>
+Current month API cost (est.): ${{ '%.2f'|format(counts.month_cost) }}</div>
+{% endblock %}

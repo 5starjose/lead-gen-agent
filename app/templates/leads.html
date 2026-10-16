@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}
+<h1>Leads</h1>
+<form method="get"><input name="q" placeholder="search name/city" value="{{ q or '' }}">
+<select name="industry"><option value="">all industries</option>{% for i in industries %}<option {% if industry==i %}selected{% endif %}>{{ i }}</option>{% endfor %}</select>
+<input name="min_score" type="number" placeholder="min score" value="{{ min_score or '' }}"><button>Filter</button></form>
+<table><tr><th>Name</th><th>Industry</th><th>City</th><th>Phone</th><th>Website</th><th>Score</th><th>Confidence</th><th>Stage</th><th>Status</th></tr>
+{% for b in leads %}<tr><td><a href="/leads/{{ b.id }}">{{ b.name }}</a>{% if b.is_test %} [TEST]{% endif %}</td><td>{{ b.industry }}</td><td>{{ b.city }}</td><td>{{ b.phone }}</td><td>{{ b.website }}</td><td>{{ b.lead_score }}</td><td>{{ b.confidence }}</td><td>{{ b.pipeline_stage }}</td><td>{{ b.sales_status }}</td></tr>{% endfor %}
+</table>{% endblock %}
